@@ -4,7 +4,7 @@ int main()
 	Trie dic;
 	string filename = "Dic.txt";
 	bool flag = readFile(dic, filename);
-	if(flag)
+	if (flag)
 	{
 		cout << "success!";
 	}
@@ -14,7 +14,7 @@ int main()
 	}
 	cout << "print the dictionary: \n";
 	//printTrie(dic);
-	if(writeFile(dic))
+	if (writeFile(dic))
 	{
 		cout << "1" << endl;
 	}
@@ -26,7 +26,7 @@ int main()
 	char n;
 	string tmp = "";
 	int y = 4;
-	while(y)
+	while (y)
 	{
 		cin >> n;
 		tmp += n;
@@ -37,17 +37,17 @@ int main()
 	int count = 0;
 	set<string> list;
 	permute(tmp, 0, tmp.length() - 1, permutations);
-	for(set<string>::iterator it = permutations.begin(); it != permutations.end(); ++it)
+	for (set<string>::iterator it = permutations.begin(); it != permutations.end(); ++it)
 	{
-		if(dic.startWith(*it))
+		if (dic.startWith(*it))
 		{
 			++count;
 			list.insert(*it);
 		}
 	}
-    cout << endl;
+	cout << endl;
 	cout << count << endl;
-	for(set<string>::iterator it = list.begin(); it != list.end(); ++it)
+	for (set<string>::iterator it = list.begin(); it != list.end(); ++it)
 	{
 		cout << *it << endl;
 	}
