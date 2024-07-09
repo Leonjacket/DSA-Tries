@@ -45,7 +45,7 @@ int main()
 			list.insert(*it);
 		}
 	}
-	cout << count << endl;
+    cout << endl;
 	cout << count << endl;
 	for(set<string>::iterator it = list.begin(); it != list.end(); ++it)
 	{
