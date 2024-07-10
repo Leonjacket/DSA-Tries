@@ -104,51 +104,6 @@ bool readDic(Trie &dic, string filename)
 	input.close();
 	return true;
 }
-void writeWord(Node *node, string word, ofstream &output)
-{
-	if (node->isEnd())
-	{
-		output << word << endl;
-	}
-	for (char i = 'a'; i <= 'z'; ++i)
-	{
-		if (node->containsKey(i))
-		{
-			writeWord(node->get(i), word + i, output);
-		}
-	}
-}
-bool writeFile(Trie dic)
-{
-	ofstream output;
-	output.open("output.txt");
-	if (!output.is_open())
-	{
-		return false;
-	}
-	writeWord(dic.root, "", output);
-	output.close();
-	return true;
-}
-
-void printWords(Node *node, string word)
-{
-	if (node->isEnd())
-	{
-		cout << word << endl;
-	}
-	for (char i = 'a'; i <= 'z'; ++i)
-	{
-		if (node->containsKey(i))
-		{
-			printWords(node->get(i), word + i);
-		}
-	}
-}
-void printTrie(Trie dic)
-{
-	printWords(dic.root, "");
-}
 
 void permute(string &a, int l, int r, set<string> &permutations)
 {

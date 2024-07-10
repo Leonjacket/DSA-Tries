@@ -14,18 +14,6 @@ int main()
 		cerr << "Error: Cannot read dictionary file" << endl;
 		return 0;
 	}
-
-	// cout << "print the dictionary: \n";
-	// printTrie(dic);
-	// if (writeFile(dic))
-	//{
-	//	cout << "1" << endl;
-	// }
-	// else
-	//{
-	//	cout << "0" << endl;
-	// }
-
 	cout << "\n-> Enter letter(s): ";
 
 	string input;
