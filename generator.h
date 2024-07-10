@@ -174,6 +174,8 @@ void getSubsets(const string &input, int index, string current, set<string> &sub
 		if (current.length() >= 3)
 		{
 			subsets.insert(current);
+			permute(current, 0, current.length() - 1, subsets);
+			subsets.insert(current);
 		}
 		return;
 	}

@@ -27,8 +27,11 @@ int main()
 	// }
 
 	cout << "\n-> Enter letter(s): ";
+
 	string input;
 	getline(cin, input);
+
+	cout << endl;
 
 	string combined;
 	for (char character : input)
@@ -41,11 +44,10 @@ int main()
 
 	set<string> subsets;
 	getSubsets(combined, 0, "", subsets);
-	set<string> validWords;
 
+	set<string> validWords;
 	for (const string &subset : subsets)
 	{
-		cout << subset << endl;
 		if (dic.search(subset))
 		{
 			validWords.insert(subset);
@@ -57,5 +59,6 @@ int main()
 	{
 		cout << word << endl;
 	}
+
 	return 0;
 }
