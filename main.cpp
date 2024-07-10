@@ -1,55 +1,61 @@
 #include "generator.h"
 int main()
 {
+	system("cls");
 	Trie dic;
 	string filename = "Dic.txt";
-	bool flag = readFile(dic, filename);
-	if (flag)
+
+	if (readDic(dic, filename))
 	{
-		cout << "success!";
+		cout << "Dictionary read successfully !" << endl;
 	}
 	else
 	{
-		cout << "fail!";
+		cerr << "Error: Cannot read dictionary file" << endl;
+		return 0;
 	}
-	cout << "print the dictionary: \n";
-	//printTrie(dic);
-	if (writeFile(dic))
+
+	// cout << "print the dictionary: \n";
+	// printTrie(dic);
+	// if (writeFile(dic))
+	//{
+	//	cout << "1" << endl;
+	// }
+	// else
+	//{
+	//	cout << "0" << endl;
+	// }
+
+	cout << "\n-> Enter letter(s): ";
+	string input;
+	getline(cin, input);
+
+	string combined;
+	for (char character : input)
 	{
-		cout << "1" << endl;
-	}
-	else
-	{
-		cout << "0" << endl;
-	}
-	cout << "enter letter(s): ";
-	char n;
-	string tmp = "";
-	int y = 4;
-	while (y)
-	{
-		cin >> n;
-		tmp += n;
-		--y;
-	}
-	cout << "string: " << tmp;
-	set<string> permutations;
-	int count = 0;
-	set<string> list;
-	permute(tmp, 0, tmp.length() - 1, permutations);
-	for (set<string>::iterator it = permutations.begin(); it != permutations.end(); ++it)
-	{
-		if (dic.startWith(*it))
+		if (character != ' ')
 		{
-			++count;
-			list.insert(*it);
+			combined += character;
 		}
 	}
-	cout << endl;
-	cout << count << endl;
-	for (set<string>::iterator it = list.begin(); it != list.end(); ++it)
+
+	set<string> subsets;
+	getSubsets(combined, 0, "", subsets);
+	set<string> validWords;
+
+	for (const string &subset : subsets)
 	{
-		cout << *it << endl;
+		cout << subset << endl;
+		if (dic.search(subset))
+		{
+			validWords.insert(subset);
+		}
+	}
+	cout << validWords.size() << endl;
+
+	for (const string &word : validWords)
+	{
+		cout << word << endl;
 	}
 	return 0;
 }

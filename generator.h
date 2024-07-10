@@ -7,27 +7,27 @@
 using namespace std;
 struct Node
 {
-	Node *links[26];
+	Node *child[26];
 	bool flag;
 	Node()
 	{
 		for (int i = 0; i < 26; ++i)
 		{
-			links[i] = NULL;
+			child[i] = NULL;
 		}
 		flag = false;
 	}
 	bool containsKey(char ch)
 	{
-		return (links[ch - 'a'] != NULL);
+		return (child[ch - 'a'] != NULL);
 	}
 	void put(char ch, Node *node)
 	{
-		links[ch - 'a'] = node;
+		child[ch - 'a'] = node;
 	}
 	Node *get(char ch)
 	{
-		return (links[ch - 'a']);
+		return (child[ch - 'a']);
 	}
 	bool setEnd()
 	{
@@ -59,6 +59,7 @@ struct Trie
 		}
 		node->setEnd();
 	}
+
 	bool search(string word)
 	{
 		Node *node = root;
@@ -72,6 +73,7 @@ struct Trie
 		}
 		return node->isEnd();
 	}
+
 	bool startWith(string prefix)
 	{
 		Node *node = root;
@@ -86,7 +88,7 @@ struct Trie
 		return true;
 	}
 };
-bool readFile(Trie &dic, string filename)
+bool readDic(Trie &dic, string filename)
 {
 	ifstream input;
 	input.open(filename.c_str());
@@ -163,4 +165,18 @@ void permute(string &a, int l, int r, set<string> &permutations)
 			swap(a[l], a[i]);
 		}
 	}
+}
+
+void getSubsets(const string &input, int index, string current, set<string> &subsets)
+{
+	if (index == input.length())
+	{
+		if (current.length() >= 3)
+		{
+			subsets.insert(current);
+		}
+		return;
+	}
+	getSubsets(input, index + 1, current + input[index], subsets);
+	getSubsets(input, index + 1, current, subsets);
 }
