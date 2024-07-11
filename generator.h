@@ -104,7 +104,6 @@ bool readDic(Trie &dic, string filename)
 	input.close();
 	return true;
 }
-
 void permute(string &a, int l, int r, set<string> &permutations)
 {
 	if (l == r)
@@ -121,7 +120,6 @@ void permute(string &a, int l, int r, set<string> &permutations)
 		}
 	}
 }
-
 void getSubsets(const string &input, int index, string current, set<string> &subsets)
 {
 	if (index == input.length())
