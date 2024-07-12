@@ -136,16 +136,21 @@ void getSubsetsAndPermutations(const string &input, int index, string current, s
 	getSubsetsAndPermutations(input, index + 1, current, subsets);
 }
 
+// Reference resources :
+// https://www.youtube.com/watch?v=-urNrIAQnNo
+// https://youtu.be/dBGUmUQhjaM?si=KqC_w4d7CwmdSf93
+// ChatGPT for the idea of Subset and Permutations
+
 int main()
 {
 	system("cls");
 	Trie dic;
 	string filename = "Dic.txt";
 
-	readDic(dic, filename);
+	readDic(dic, filename); // Build the Trie from the Dic.txt
 
 	string input;
-	getline(cin, input);
+	getline(cin, input); // Get the raw input
 
 	string combined;
 	for (char character : input)
@@ -154,10 +159,10 @@ int main()
 		{
 			combined += character;
 		}
-	}
+	} // Remove the spaces from the input
 
 	set<string> subsets;
-	getSubsetsAndPermutations(combined, 0, "", subsets);
+	getSubsetsAndPermutations(combined, 0, "", subsets); // From the combined, generate all the subsets and permutations
 
 	set<string> validWords;
 	for (const string &subset : subsets)
@@ -166,14 +171,14 @@ int main()
 		{
 			validWords.insert(subset);
 		}
-	}
+	} // Check if the word is available in the Trie
 
 	cout << validWords.size() << endl;
 
 	for (const string &word : validWords)
 	{
 		cout << word << endl;
-	}
+	} // Print out the result
 
 	return 0;
 }
