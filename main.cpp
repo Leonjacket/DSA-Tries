@@ -167,6 +167,7 @@ int main()
 			validWords.insert(subset);
 		}
 	}
+
 	cout << validWords.size() << endl;
 
 	for (const string &word : validWords)
