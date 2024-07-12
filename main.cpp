@@ -59,7 +59,6 @@ struct Trie
 		}
 		node->setEnd();
 	}
-
 	bool search(string word)
 	{
 		Node *node = root;
@@ -73,22 +72,8 @@ struct Trie
 		}
 		return node->isEnd();
 	}
-
-	bool startWith(string prefix)
-	{
-		Node *node = root;
-		for (int i = 0; i < prefix.length(); ++i)
-		{
-			if (!node->containsKey(prefix[i]))
-			{
-				return false;
-			}
-			node = node->get(prefix[i]);
-		}
-		return true;
-	}
 };
-bool readDic(Trie &dic, string filename)
+bool buildTrie(Trie &dic, string filename)
 {
 	ifstream input;
 	input.open(filename.c_str());
@@ -103,6 +88,26 @@ bool readDic(Trie &dic, string filename)
 	}
 	input.close();
 	return true;
+}
+string getInput()
+{
+	string raw_input;
+	getline(cin, raw_input);
+	string lowercaseInput;
+	for (char character : raw_input)
+	{
+		lowercaseInput += tolower(character);
+	}
+	sort(lowercaseInput.begin(), lowercaseInput.end());
+	string combined;
+	for (char character : lowercaseInput)
+	{
+		if (character != ' ')
+		{
+			combined += character;
+		}
+	}
+	return combined;
 }
 void permute(string &a, int l, int r, set<string> &permutations)
 {
@@ -137,32 +142,26 @@ void getSubsetsAndPermutations(const string &input, int index, string current, s
 }
 
 // Reference resources :
-// https://www.youtube.com/watch?v=-urNrIAQnNo
-// https://youtu.be/dBGUmUQhjaM?si=KqC_w4d7CwmdSf93
-// ChatGPT for the idea of Subset and Permutations
+// https://www.youtube.com/watch?v=-urNrIAQnNo - Trie Data Structure
+// https://youtu.be/dBGUmUQhjaM?si=KqC_w4d7CwmdSf93 - Trie Data Structure
+// https://www.geeksforgeeks.org/write-a-c-program-to-print-all-permutations-of-a-given-string/amp/ ( Permutations function )
+// https://www.geeksforgeeks.org/find-all-unique-subsets-of-a-given-set-using-c-stl/ ( Subsets function )
+// ChatGPT for the idea of combining Subset with Permutations.
 
 int main()
 {
 	system("cls");
-	Trie dic;
+
+	Trie dic; // Create a Trie
+
 	string filename = "Dic.txt";
 
-	readDic(dic, filename); // Build the Trie from the Dic.txt
+	buildTrie(dic, filename); // Build the Trie from the Dic.txt
 
-	string input;
-	getline(cin, input); // Get the raw input
-
-	string combined;
-	for (char character : input)
-	{
-		if (character != ' ')
-		{
-			combined += character;
-		}
-	} // Remove the spaces from the input
+	string input = getInput(); // Get the input which meets requirements in the Proj.pdf
 
 	set<string> subsets;
-	getSubsetsAndPermutations(combined, 0, "", subsets); // From the combined, generate all the subsets and permutations
+	getSubsetsAndPermutations(input, 0, "", subsets); // From the combined, generate all the subsets and permutations
 
 	set<string> validWords;
 	for (const string &subset : subsets)
@@ -174,7 +173,6 @@ int main()
 	} // Check if the word is available in the Trie
 
 	cout << validWords.size() << endl;
-
 	for (const string &word : validWords)
 	{
 		cout << word << endl;
