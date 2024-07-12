@@ -120,7 +120,7 @@ void permute(string &a, int l, int r, set<string> &permutations)
 		}
 	}
 }
-void getSubsets(const string &input, int index, string current, set<string> &subsets)
+void getSubsetsAndPermutations(const string &input, int index, string current, set<string> &subsets)
 {
 	if (index == input.length())
 	{
@@ -132,8 +132,8 @@ void getSubsets(const string &input, int index, string current, set<string> &sub
 		}
 		return;
 	}
-	getSubsets(input, index + 1, current + input[index], subsets);
-	getSubsets(input, index + 1, current, subsets);
+	getSubsetsAndPermutations(input, index + 1, current + input[index], subsets);
+	getSubsetsAndPermutations(input, index + 1, current, subsets);
 }
 
 int main()
@@ -157,7 +157,7 @@ int main()
 	}
 
 	set<string> subsets;
-	getSubsets(combined, 0, "", subsets);
+	getSubsetsAndPermutations(combined, 0, "", subsets);
 
 	set<string> validWords;
 	for (const string &subset : subsets)
